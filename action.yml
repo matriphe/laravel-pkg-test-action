@@ -1,0 +1,73 @@
+name: Laravel Package Test Action
+description: GitHub Action to test Laravel package and library compatibility using PHPUnit
+author: Muhammad Zamroni
+branding:
+  icon: umbrella
+  color: orange
+
+inputs:
+  operating_system:
+    description: The Operating System where the test runs
+    required: false
+    default: ubuntu-latest
+  php_version:
+    description: The PHP version where the test runs
+    required: true
+  laravel_version:
+    description: The Laravel framework version where the test runs
+    required: true
+  branch:
+    description: The branch name, tag name, or git reference checksum to check out
+    required: false
+  laravel_install_args:
+    description: The arguments passed to Composer when installing Laravel framework
+    required: false
+    default: --prefer-dist --no-progress --no-suggest ---optimize-autoloader --no-plugins
+  package_install_args:
+    description: The arguments passed to Composer when installing the package
+    required: false
+    default: --prefer-dist --no-progress --no-suggest --optimize-autoloader --no-plugins
+  phpunit_args:
+    description: The arguments passed to PHPUnit when running the test
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - id: checkout
+      name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.branch }}
+
+    - id: setup-php
+      name: Setup PHP ${{ inputs.php_version }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php_version }}
+
+    - id: cache-composer
+      name: Cache Composer packages
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ inputs.operating_system }}-php-${{ inputs.php_version }}-laravel-${{ inputs.laravel_version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ inputs.operating_system }}-php-${{ inputs.php_version }}-laravel-${{ inputs.laravel_version }}-
+          ${{ inputs.operating_system }}-php-${{ inputs.php_version }}-laravel-
+          ${{ inputs.operating_system }}-php-
+          ${{ inputs.operating_system }}-
+
+    - id: install-laravel
+      name: Install Laravel ${{ inputs.laravel_version }}
+      shell: bash
+      run: composer require "laravel/framework:${{ inputs.laravel_version }}" ${{ inputs.laravel_install_args }}
+
+    - id: update-package
+      name: Update Composer dependencies
+      shell: bash
+      run: composer update ${{ inputs.package_install_args }}
+
+    - name: Run tests
+      shell: bash
+      run: vendor/bin/phpunit ${{ inputs.phpunit_args }}
