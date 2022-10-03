@@ -13,6 +13,9 @@ inputs:
   php_version:
     description: The PHP version where the test runs
     required: true
+  php_extensions:
+    description: The PHP extension enabled for the test, separated by comma
+    required: false
   laravel_version:
     description: The Laravel framework version where the test runs
     required: true
@@ -45,6 +48,12 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ inputs.php_version }}
+        extension: ${{ inputs.php_extensions }}
+
+    - id: check-php-ext
+      name: Check PHP Version and Extensions
+      shell: bash
+      run: php -v && php -m
 
     - id: cache-composer
       name: Cache Composer packages
