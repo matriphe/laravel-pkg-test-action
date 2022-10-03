@@ -22,7 +22,7 @@ inputs:
   laravel_install_args:
     description: The arguments passed to Composer when installing Laravel framework
     required: false
-    default: --prefer-dist --no-progress --no-suggest ---optimize-autoloader --no-plugins
+    default: --prefer-dist --no-progress --no-suggest --optimize-autoloader --no-plugins
   package_install_args:
     description: The arguments passed to Composer when installing the package
     required: false
