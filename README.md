@@ -8,7 +8,7 @@ This action will automatically check out your code.
 
 ```yaml
 steps:
-  - uses: matriphe/laravel-pkg-test-action@v3
+  - uses: matriphe/laravel-pkg-test-action@v2
     with:
       operating_system: ubuntu-latest # The Operating System where the test runs
       php_version: 8.1 # The PHP version where the test runs
