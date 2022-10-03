@@ -8,7 +8,7 @@ This action will automatically check out your code.
 
 ```yaml
 steps:
-  - uses: matriphe/laravel-pkg-test-action@v2
+  - uses: matriphe/laravel-pkg-test-action@v3
     with:
       operating_system: ubuntu-latest # The Operating System where the test runs
       php_version: 8.1 # The PHP version where the test runs
@@ -18,6 +18,7 @@ steps:
       laravel_install_args: --prefer-dist # The arguments passed to Composer when installing Laravel framework
       package_install_args: --prefer-dist --no-progress  # The arguments passed to Composer when installing the package
       phpunit_args: --filter some_test # The arguments passed to PHPUnit when running the test
+      shell_name: bash # The shell name used to run the test
 ```
 
 ## License
