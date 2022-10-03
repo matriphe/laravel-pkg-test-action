@@ -33,6 +33,10 @@ inputs:
   phpunit_args:
     description: The arguments passed to PHPUnit when running the test
     required: false
+  shell_name:
+    description: The shell name used to run the test
+    required: false
+    default: bash
 
 runs:
   using: composite
@@ -52,7 +56,7 @@ runs:
 
     - id: check-php-ext
       name: Check PHP Version and Extensions
-      shell: bash
+      shell: ${{ inputs.shell_name }}
       run: php -v && php -m
 
     - id: cache-composer
@@ -69,14 +73,14 @@ runs:
 
     - id: install-laravel
       name: Install Laravel ${{ inputs.laravel_version }}
-      shell: bash
+      shell: ${{ inputs.shell_name }}
       run: composer require "laravel/framework:${{ inputs.laravel_version }}" ${{ inputs.laravel_install_args }}
 
     - id: update-package
       name: Update Composer dependencies
-      shell: bash
+      shell: ${{ inputs.shell_name }}
       run: composer update ${{ inputs.package_install_args }}
 
     - name: Run tests
-      shell: bash
+      shell: ${{ inputs.shell_name }}
       run: vendor/bin/phpunit ${{ inputs.phpunit_args }}
