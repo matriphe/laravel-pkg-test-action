@@ -52,7 +52,7 @@ runs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ inputs.php_version }}
-        extension: ${{ inputs.php_extensions }}
+        extensions: ${{ inputs.php_extensions }}
 
     - id: check-php-ext
       name: Check PHP Version and Extensions
