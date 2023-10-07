@@ -12,7 +12,8 @@ inputs:
     default: ubuntu-latest
   php_version:
     description: The PHP version where the test runs
-    required: true
+    required: false
+    default: "8.2"
   php_extensions:
     description: The PHP extension enabled for the test, separated by comma
     required: false
