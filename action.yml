@@ -12,13 +12,15 @@ inputs:
     default: ubuntu-latest
   php_version:
     description: The PHP version where the test runs
-    required: true
+    required: false
+    default: "8.2"
   php_extensions:
     description: The PHP extension enabled for the test, separated by comma
     required: false
   laravel_version:
     description: The Laravel framework version where the test runs
-    required: true
+    required: false
+    default: "^10.0"
   branch:
     description: The branch name, tag name, or git reference checksum to check out
     required: false
