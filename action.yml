@@ -19,7 +19,8 @@ inputs:
     required: false
   laravel_version:
     description: The Laravel framework version where the test runs
-    required: true
+    required: false
+    default: "^10.0"
   branch:
     description: The branch name, tag name, or git reference checksum to check out
     required: false
