@@ -63,7 +63,7 @@ runs:
 
     - id: cache-composer
       name: Cache Composer packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: vendor
         key: ${{ inputs.operating_system }}-php-${{ inputs.php_version }}-laravel-${{ inputs.laravel_version }}-${{ hashFiles('**/composer.lock') }}
