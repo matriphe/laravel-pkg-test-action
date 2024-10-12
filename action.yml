@@ -56,10 +56,15 @@ runs:
         php-version: ${{ inputs.php_version }}
         extensions: ${{ inputs.php_extensions }}
 
-    - id: check-php-ext
-      name: Check PHP Version and Extensions
+    - id: check-php-version
+      name: Check PHP Version
       shell: ${{ inputs.shell_name }}
-      run: php -v && php -m
+      run: php -v
+
+    - id: check-php-ext
+      name: Check PHP Extensions
+      shell: ${{ inputs.shell_name }}
+      run: php -m
 
     - id: cache-composer
       name: Cache Composer packages
